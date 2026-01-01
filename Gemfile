@@ -55,3 +55,28 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+
+# Inlines SVG files into views for easy CSS styling and manipulation
+gem "inline_svg"
+
+# Efficient background job processing using Redis.
+gem "sidekiq"
+
+# Prevents hazardous database migrations that could cause downtime.
+gem "strong_migrations"
+
+group :test do
+  # Provides simple one-liner matchers for testing Rails functionality (like validations and associations)
+  gem "shoulda-matchers", "~> 6.0"
+  
+  # Library for stubbing and setting expectations on HTTP requests (prevents real external API calls)
+  gem "webmock"
+end
+
+group :development, :test do
+  # A library for setting up Ruby objects as test data (alternative to fixtures)
+  gem "factory_bot_rails"
+  
+  # The RSpec testing framework for Ruby on Rails
+  gem "rspec-rails", "~> 8.0.0"
+end
