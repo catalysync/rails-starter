@@ -65,6 +65,12 @@ gem "sidekiq"
 # Prevents hazardous database migrations that could cause downtime.
 gem "strong_migrations"
 
+# Authentication
+gem "devise"
+
+# Authorization
+gem "pundit"
+
 group :test do
   # Provides simple one-liner matchers for testing Rails functionality (like validations and associations)
   gem "shoulda-matchers", "~> 6.0"
