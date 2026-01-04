@@ -86,3 +86,5 @@ group :development, :test do
   # The RSpec testing framework for Ruby on Rails
   gem "rspec-rails", "~> 8.0.0"
 end
+
+gem "tailwindcss-rails", "~> 4.4"
