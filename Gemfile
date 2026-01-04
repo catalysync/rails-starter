@@ -68,6 +68,9 @@ gem "strong_migrations"
 # Authentication
 gem "devise"
 
+# To easily see the emails devise sends in development
+gem "letter_opener_web"
+
 # Authorization
 gem "pundit"
 
