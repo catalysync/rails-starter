@@ -60,6 +60,9 @@ group :development do
 
   # Bullet helps to kill N+1 queries and unused eager loading problems
   gem "bullet", github: "flyerhzm/bullet", branch: "main"
+
+  # Git hooks made easy
+  gem "lefthook", require: false
 end
 
 # Inlines SVG files into views for easy CSS styling and manipulation

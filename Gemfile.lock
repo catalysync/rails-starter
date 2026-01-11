@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/flyerhzm/bullet.git
+  revision: 5f4173292a0566ca5ba0b1ff8e1d6362f3be85b0
+  branch: main
+  specs:
+    bullet (8.1.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -91,9 +100,6 @@ GEM
     brakeman (7.1.2)
       racc
     builder (3.3.0)
-    bullet (8.0.0)
-      activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.11)
     bundler-audit (0.9.3)
       bundler (>= 1.2.0)
       thor (~> 1.0)
@@ -177,6 +183,7 @@ GEM
       addressable (~> 2.8)
       childprocess (~> 5.0)
       logger (~> 1.6)
+    lefthook (2.0.13)
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
     letter_opener_web (3.0.0)
@@ -447,7 +454,7 @@ DEPENDENCIES
   annotate (~> 2.6)
   bootsnap
   brakeman
-  bullet
+  bullet!
   bundler-audit
   cacheflow
   debug
@@ -460,6 +467,7 @@ DEPENDENCIES
   inline_svg
   jbuilder
   kamal
+  lefthook
   letter_opener_web
   paper_trail (~> 17.0)
   pg (~> 1.1)
