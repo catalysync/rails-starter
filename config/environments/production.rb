@@ -78,6 +78,9 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
+  # Enable sandboxed transactions in production for extra safety. To start rails console in non-sandbox mode, --no-sandbox must be specified
+  config.sandbox_by_default = true
+
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com

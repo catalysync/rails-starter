@@ -54,6 +54,12 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Annotate models, routes, factories, etc. with schema details
+  gem "annotate", "~> 2.6"
+
+  # Bullet helps to kill N+1 queries and unused eager loading problems
+  gem "bullet", github: "flyerhzm/bullet", branch: "main"
 end
 
 # Inlines SVG files into views for easy CSS styling and manipulation
@@ -61,6 +67,9 @@ gem "inline_svg"
 
 # Efficient background job processing using Redis.
 gem "sidekiq"
+
+# Colorized logging for Redis caching
+gem "cacheflow"
 
 # Prevents hazardous database migrations that could cause downtime.
 gem "strong_migrations"
@@ -77,7 +86,7 @@ gem "pundit"
 group :test do
   # Provides simple one-liner matchers for testing Rails functionality (like validations and associations)
   gem "shoulda-matchers", "~> 6.0"
-  
+
   # Library for stubbing and setting expectations on HTTP requests (prevents real external API calls)
   gem "webmock"
 end
@@ -85,9 +94,15 @@ end
 group :development, :test do
   # A library for setting up Ruby objects as test data (alternative to fixtures)
   gem "factory_bot_rails"
-  
+
   # The RSpec testing framework for Ruby on Rails
   gem "rspec-rails", "~> 8.0.0"
+
+  # Fake data generator (for use with FactoryBot)
+  gem "faker"
+
+  # Loads environment variables from .env for development and test environments
+  gem "dotenv"
 end
 
 gem "tailwindcss-rails", "~> 4.4"

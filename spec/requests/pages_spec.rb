@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Pages", type: :request do
   describe "GET /" do
-    context "when signed in" do      
+    context "when signed in" do
       it "returns http success" do
         user = User.new
         sign_in user
