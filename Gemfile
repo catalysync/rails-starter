@@ -86,6 +86,9 @@ gem "letter_opener_web"
 # Authorization
 gem "pundit"
 
+# AWS SDK for Ruby v3 - S3 for Active Storage
+gem "aws-sdk-s3", require: false
+
 group :test do
   # Provides simple one-liner matchers for testing Rails functionality (like validations and associations)
   gem "shoulda-matchers", "~> 6.0"
@@ -111,3 +114,6 @@ end
 gem "tailwindcss-rails", "~> 4.4"
 
 gem "paper_trail", "~> 17.0"
+
+gem "simple_form", "~> 5.4"
+gem "simple_form_tailwind_css"
