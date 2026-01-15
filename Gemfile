@@ -111,9 +111,17 @@ group :development, :test do
   gem "dotenv"
 end
 
+# CSS framework integration for Rails using Tailwind CSS
 gem "tailwindcss-rails", "~> 4.4"
 
+# For tracking changes to models
 gem "paper_trail", "~> 17.0"
 
+# Form builder with Tailwind CSS support
 gem "simple_form", "~> 5.4"
 gem "simple_form_tailwind_css"
+
+# Enhanced console output for Ruby objects
+gem "amazing_print"
+# Semantic logging for Rails applications
+gem "rails_semantic_logger"

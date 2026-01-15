@@ -55,5 +55,10 @@ module Starter
       Devise::PasswordsController.layout "auth"
       Devise::Mailer.layout "mailer"
     end
+
+    config.rails_semantic_logger.started    = true
+    config.rails_semantic_logger.processing = true
+    config.rails_semantic_logger.rendered   = true
+    config.semantic_logger.backtrace_level  = :info if Rails.env.development?
   end
 end
