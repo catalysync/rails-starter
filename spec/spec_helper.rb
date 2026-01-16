@@ -13,6 +13,12 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'simplecov'
+SimpleCov.start 'rails'
+
+require "webmock/rspec"
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -91,4 +97,14 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.before(:each) do
+    WebMock.disable_net_connect!(
+      allow_localhost: true,
+      allow: [
+        /(chromedriver|storage).googleapis.com/,
+        "googlechromelabs.github.io"
+      ]
+    )
+  end
 end

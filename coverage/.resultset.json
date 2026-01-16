@@ -1,0 +1,154 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          0,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/helpers/application_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/helpers/pages_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/controllers/pages_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/jobs/application_job.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/mailers/application_mailer.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/models/application_record.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          null,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/models/user.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/ifedayodamilola/Documents/build/rails-starter/app/policies/application_policy.rb": {
+        "lines": [
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      }
+    },
+    "timestamp": 1768596925
+  }
+}

@@ -37,6 +37,8 @@ module Starter
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = "UTC"
+    config.active_record.default_timezone = :utc
 
     config.generators do |g|
       g.system_tests false
@@ -59,6 +61,7 @@ module Starter
     config.rails_semantic_logger.started    = true
     config.rails_semantic_logger.processing = true
     config.rails_semantic_logger.rendered   = true
+    config.rails_semantic_logger.format     = :json
     config.semantic_logger.backtrace_level  = :info if Rails.env.development?
   end
 end

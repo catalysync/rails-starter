@@ -95,6 +95,9 @@ group :test do
 
   # Library for stubbing and setting expectations on HTTP requests (prevents real external API calls)
   gem "webmock"
+
+  # Code coverage analysis tool
+  gem "simplecov", require: false
 end
 
 group :development, :test do
