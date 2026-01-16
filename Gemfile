@@ -91,7 +91,7 @@ gem "aws-sdk-s3", require: false
 
 group :test do
   # Provides simple one-liner matchers for testing Rails functionality (like validations and associations)
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 7.0"
 
   # Library for stubbing and setting expectations on HTTP requests (prevents real external API calls)
   gem "webmock"
