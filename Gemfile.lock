@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/flyerhzm/bullet.git
-  revision: 5f4173292a0566ca5ba0b1ff8e1d6362f3be85b0
+  revision: 260791d298104b3746b5bdba71ac5615d1094115
   branch: main
   specs:
     bullet (8.1.0)
@@ -461,7 +461,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.2.0)
-    uniform_notifier (1.16.0)
+    uniform_notifier (1.18.0)
     uri (1.1.1)
     useragent (0.16.11)
     warden (1.2.9)
