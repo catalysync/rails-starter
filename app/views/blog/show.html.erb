@@ -1,0 +1,42 @@
+<% content_for(:title, "Blog Post — Starter") %>
+
+<article class="py-20 sm:py-28">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%# Back link %>
+    <div class="mb-8">
+      <%= link_to blog_index_path, class: "inline-flex items-center gap-2 text-sm text-[var(--color-fg-1000)] hover:text-[var(--color-fg-1200)] transition-colors" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Back to Blog
+      <% end %>
+    </div>
+
+    <%# Post header %>
+    <header class="mb-12">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-xs font-medium text-[var(--color-eggplant)] bg-[rgba(49,38,59,0.06)] px-2 py-0.5 rounded-full">Engineering</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-bold text-[var(--color-obsidian)] mb-4"><%= @slug.titleize %></h1>
+
+      <div class="flex items-center gap-4 text-sm text-[var(--color-fg-1000)]">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gray-200 to-gray-300"></div>
+          <span>Author Name</span>
+        </div>
+        <span>&middot;</span>
+        <time>March 14, 2026</time>
+        <span>&middot;</span>
+        <span>8 min read</span>
+      </div>
+    </header>
+
+    <%# Placeholder content %>
+    <div class="prose prose-gray max-w-none">
+      <p class="text-lg text-[var(--color-fg-1100)] leading-relaxed">This is a placeholder blog post. In production, this content would come from your CMS, database, or markdown files.</p>
+
+      <div class="my-8 p-6 bg-[var(--color-fg-200)] border border-[var(--color-grid-400)] rounded-xl text-center text-[var(--color-fg-900)]">
+        <p class="text-sm">Blog post content area — connect to your CMS or use Action Text for rich content editing.</p>
+      </div>
+    </div>
+  </div>
+</article>

@@ -79,12 +79,16 @@ gem "strong_migrations"
 
 # Authentication
 gem "devise"
+gem "responders"
 
 # To easily see the emails devise sends in development
 gem "letter_opener_web"
 
 # Authorization
 gem "pundit"
+
+# Multi-tenancy - automatic tenant scoping for all models
+gem "acts_as_tenant"
 
 # AWS SDK for Ruby v3 - S3 for Active Storage
 gem "aws-sdk-s3", require: false
@@ -128,3 +132,15 @@ gem "simple_form_tailwind_css"
 gem "amazing_print"
 # Semantic logging for Rails applications
 gem "rails_semantic_logger"
+
+# API
+gem "grape"
+gem "grape-swagger"
+gem "grape_on_rails_routes"
+gem "grape-swagger-ui"
+gem "grape-swagger-entity"
+gem "grape-swagger-representable"
+gem "rswag-ui"
+gem "rack-cors"
+gem "scalar_ruby", "~> 1.1"
+gem "grape-swagger-rails"

@@ -1,0 +1,32 @@
+<% content_for(:title, "Terms of Service — Starter") %>
+
+<section class="py-20 sm:py-28">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <h1 class="text-3xl font-bold text-[var(--color-obsidian)]">Terms of Service</h1>
+      <p class="mt-2 text-sm text-[var(--color-fg-1000)]">Last updated: <%= Date.current.strftime("%B %d, %Y") %></p>
+    </header>
+
+    <div class="prose prose-gray max-w-none">
+      <p>These Terms of Service govern your use of our service. By accessing or using the service, you agree to be bound by these terms.</p>
+
+      <h2>Account Terms</h2>
+      <p>You are responsible for maintaining the security of your account and password. The service cannot and will not be liable for any loss or damage from your failure to comply with this security obligation.</p>
+
+      <h2>Acceptable Use</h2>
+      <p>You agree not to use the service for any unlawful purpose or in any way that could damage, disable, or impair the service.</p>
+
+      <h2>Payment Terms</h2>
+      <p>Paid plans are billed in advance on a monthly or annual basis and are non-refundable. You can cancel your subscription at any time.</p>
+
+      <h2>Termination</h2>
+      <p>We may terminate or suspend your account at any time for conduct that we determine violates these Terms or is harmful to other users.</p>
+
+      <h2>Changes</h2>
+      <p>We reserve the right to modify these Terms at any time. We will provide notice of material changes by posting on this page.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these Terms? <a href="<%= contact_path %>">Contact us</a>.</p>
+    </div>
+  </div>
+</section>

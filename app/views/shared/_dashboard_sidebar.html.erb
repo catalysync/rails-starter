@@ -1,0 +1,122 @@
+<aside data-sidebar-target="sidebar"
+       class="fixed inset-y-0 left-0 z-40 w-64 flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out"
+       style="background: var(--color-fg-100); border-right: 1px solid var(--color-grid-500);">
+
+  <%# ── Logo ── %>
+  <div class="h-16 flex items-center justify-between px-4" style="border-bottom: 1px solid var(--color-grid-400);">
+    <%= link_to dashboard_path, class: "flex items-center gap-2.5" do %>
+      <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-roseQuartz to-eggplant flex items-center justify-center">
+        <span class="text-white font-bold text-xs">S</span>
+      </div>
+      <span class="font-display text-base font-bold tracking-tight" style="color: var(--color-obsidian);">Starter</span>
+    <% end %>
+    <button data-action="click->sidebar#close" class="lg:hidden p-1 rounded" style="color: var(--color-fg-1000);">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <%# ── Account Switcher ── %>
+  <% if current_account %>
+    <div class="px-3 py-3" style="border-bottom: 1px solid var(--color-grid-400);">
+      <div class="relative" data-controller="dropdown">
+        <button data-action="click->dropdown#toggle"
+                class="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors hover:bg-[var(--color-fg-300)]">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold shrink-0" style="background: linear-gradient(135deg, rgba(245,192,192,0.2), rgba(164,119,178,0.15)); border: 1px solid var(--color-grid-400); color: var(--color-eggplant);">
+            <%= current_account.name.first.upcase %>
+          </div>
+          <div class="flex-1 text-left min-w-0">
+            <div class="font-medium text-sm truncate" style="color: var(--color-obsidian);"><%= current_account.name %></div>
+            <div class="text-xs" style="color: var(--color-text-muted);"><%= current_account.personal? ? "Personal" : "Team" %></div>
+          </div>
+          <svg class="w-4 h-4 shrink-0" style="color: var(--color-fg-900);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+        </button>
+
+        <div data-dropdown-target="menu" class="hidden absolute left-0 right-0 mt-1 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto" style="background: var(--color-fg-100); border: 1px solid var(--color-grid-500);">
+          <div class="p-1">
+            <% current_user.accounts.each do |account| %>
+              <% if account == current_account %>
+                <div class="flex items-center gap-2 px-3 py-2 text-sm rounded-md" style="color: var(--color-eggplant); background: rgba(49,38,59,0.06);">
+                  <div class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold shrink-0" style="background: rgba(49,38,59,0.08);"><%= account.name.first.upcase %></div>
+                  <span class="font-medium truncate"><%= account.name %></span>
+                  <svg class="w-4 h-4 ml-auto shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                </div>
+              <% else %>
+                <%= button_to switch_account_path(account), method: :patch, class: "w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[var(--color-fg-300)] transition-colors", style: "color: var(--color-fg-1200);" do %>
+                  <div class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-semibold shrink-0" style="background: var(--color-fg-500); color: var(--color-fg-1000);"><%= account.name.first.upcase %></div>
+                  <span class="truncate"><%= account.name %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="p-1" style="border-top: 1px solid var(--color-grid-400);">
+            <%= link_to new_account_path, class: "flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[var(--color-fg-300)] transition-colors", style: "color: var(--color-fg-1100);" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"/></svg>
+              <span>Create account</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# ── Navigation ── %>
+  <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+    <% [
+      { label: "Main", links: [["Dashboard", dashboard_path, "home"], ["Analytics", dashboard_analytics_path, "chart"]] },
+      { label: "Workspace", links: [["Members", dashboard_members_path, "users"], ["Billing", dashboard_billing_path, "credit-card"]] },
+      { label: "Settings", links: [["General", dashboard_settings_general_path, "settings"], ["Profile", dashboard_settings_profile_path, "user"], ["Notifications", dashboard_settings_notifications_path, "bell"]] }
+    ].each do |section| %>
+      <div class="mb-4">
+        <p class="hex-label px-3 mb-2"><%= section[:label] %></p>
+        <% section[:links].each do |label, path, icon| %>
+          <%= dashboard_nav_link label, path, icon: icon %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if current_user&.platform_admin? %>
+      <div class="mb-4">
+        <p class="hex-label px-3 mb-2">Admin</p>
+        <%= dashboard_nav_link "Overview", admin_dashboard_path, icon: "shield" %>
+        <%= dashboard_nav_link "Users", admin_users_path, icon: "users" %>
+        <%= dashboard_nav_link "Organizations", admin_accounts_path, icon: "building" %>
+        <%= dashboard_nav_link "Customers", admin_customers_path, icon: "credit-card" %>
+      </div>
+    <% end %>
+  </nav>
+
+  <%# ── User menu ── %>
+  <div class="p-3" style="border-top: 1px solid var(--color-grid-400);">
+    <div class="relative" data-controller="dropdown">
+      <button data-action="click->dropdown#toggle"
+              class="w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-[var(--color-fg-300)] transition-colors">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold shrink-0" style="background: var(--color-fg-500); color: var(--color-fg-1000);">
+          <%= current_user.name.first.upcase %>
+        </div>
+        <div class="flex-1 text-left min-w-0">
+          <div class="font-medium text-sm truncate" style="color: var(--color-obsidian);"><%= current_user.name %></div>
+          <div class="text-xs truncate" style="color: var(--color-text-muted);"><%= current_user.email %></div>
+        </div>
+      </button>
+
+      <div data-dropdown-target="menu" class="hidden absolute bottom-full left-0 right-0 mb-1 rounded-lg shadow-lg z-50" style="background: var(--color-fg-100); border: 1px solid var(--color-grid-500);">
+        <div class="p-1">
+          <%= link_to dashboard_settings_profile_path, class: "flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[var(--color-fg-300)] transition-colors", style: "color: var(--color-fg-1200);" do %>
+            <svg class="w-4 h-4" style="color: var(--color-fg-900);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span>Profile</span>
+          <% end %>
+          <%= link_to dashboard_settings_general_path, class: "flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[var(--color-fg-300)] transition-colors", style: "color: var(--color-fg-1200);" do %>
+            <svg class="w-4 h-4" style="color: var(--color-fg-900);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>Settings</span>
+          <% end %>
+        </div>
+        <div class="p-1" style="border-top: 1px solid var(--color-grid-400);">
+          <%= button_to destroy_user_session_path, method: :delete, class: "w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-[var(--color-fg-300)] transition-colors", style: "color: #c24040;" do %>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span>Sign out</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

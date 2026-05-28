@@ -84,6 +84,13 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  # Allow GitHub Codespaces forwarded hosts
+  config.hosts << ".app.github.dev"
+  config.hosts << ".preview.app.github.dev"
+
+  # Trust the forwarded origin in Codespaces so CSRF checks pass
+  config.action_controller.forgery_protection_origin_check = false
+
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 

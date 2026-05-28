@@ -1,0 +1,49 @@
+<% content_for(:title, "Customers & Billing — Admin") %>
+
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Admin", admin_dashboard_path, class: "hover:text-[var(--color-fg-1200)]" %>
+  <svg class="w-4 h-4 mx-1 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span class="font-medium text-obsidian">Customers</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <h1 class="hex-h3">Customers & Billing</h1>
+      <span class="px-2 py-0.5 text-xs font-medium text-[#c24040] bg-[rgba(245,192,192,0.12)] rounded-[99px]">Admin</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="px-4 py-2 text-sm font-medium text-[var(--color-fg-1200)] hex-card rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors">Export CSV</button>
+      <a href="#" class="btn-hex btn-hex-sm rounded-[3px]" target="_blank">Open Stripe Dashboard</a>
+    </div>
+  </div>
+  <p class="text-sm text-[var(--color-fg-1100)] mt-1">Manage subscriptions, view billing history, and monitor revenue</p>
+<% end %>
+
+<%# ── Revenue metrics ── %>
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+  <%= render "shared/metric_card", label: "Monthly Recurring Revenue", value: "—", change: nil, icon: "chart" %>
+  <%= render "shared/metric_card", label: "Active Subscriptions", value: "—", change: nil, icon: "credit-card" %>
+  <%= render "shared/metric_card", label: "Trial Accounts", value: "—", change: nil %>
+  <%= render "shared/metric_card", label: "Churn This Month", value: "—", change: nil %>
+</div>
+
+<%# ── Customers table ── %>
+<%= render "shared/data_table",
+  search_placeholder: "Search by account name or email...",
+  filters: [
+    { name: "plan", options: ["All plans", "Free", "Pro", "Enterprise"] },
+    { name: "status", options: ["All statuses", "Active", "Trialing", "Past Due", "Canceled"] },
+    { name: "billing", options: ["Any billing", "Monthly", "Annual"] }
+  ],
+  columns: [
+    { label: "Account", sortable: true },
+    "Plan",
+    "Status",
+    { label: "MRR", sortable: true },
+    "Billing Cycle",
+    { label: "Started", sortable: true },
+    ""
+  ],
+  empty_message: "No customers found",
+  empty_detail: "Billing data will appear once Stripe is integrated" %>

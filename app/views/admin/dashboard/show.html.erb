@@ -1,0 +1,76 @@
+<% content_for(:title, "Admin Dashboard — Starter") %>
+
+<% content_for(:breadcrumbs) do %>
+  <span class="font-medium text-obsidian">Admin</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <div class="flex items-center gap-3">
+    <h1 class="hex-h3">Admin Dashboard</h1>
+    <span class="px-2 py-0.5 text-xs font-medium text-[#c24040] bg-[rgba(245,192,192,0.12)] rounded-[99px]">Super Admin</span>
+  </div>
+  <p class="text-sm text-[var(--color-fg-1100)] mt-1">Platform overview and management</p>
+<% end %>
+
+<%# ── Metrics ── %>
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <%= render "shared/metric_card", label: "Total Users", value: "—", change: nil, icon: "users" %>
+  <%= render "shared/metric_card", label: "Organizations", value: "—", change: nil, icon: "building" %>
+  <%= render "shared/metric_card", label: "Active Subscriptions", value: "—", change: nil, icon: "credit-card" %>
+  <%= render "shared/metric_card", label: "Monthly Revenue", value: "—", change: nil, icon: "chart" %>
+</div>
+
+<%# ── Quick Actions ── %>
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <% [
+    { title: "Manage Users", description: "Search, filter, and manage platform users", path: admin_users_path, bg: "rgba(49,38,59,0.06)", fg: "var(--color-eggplant)" },
+    { title: "Organizations", description: "View and manage all accounts", path: admin_accounts_path, bg: "rgba(164,119,178,0.08)", fg: "var(--color-amethyst)" },
+    { title: "Customers & Billing", description: "Subscriptions, invoices, and revenue", path: admin_customers_path, bg: "rgba(92,177,152,0.08)", fg: "var(--color-jade)" },
+    { title: "Sidekiq", description: "Background jobs and queue monitoring", path: (Rails.env.local? ? "/sidekiq" : "#"), bg: "rgba(205,168,73,0.08)", fg: "var(--color-citrine)" }
+  ].each do |action| %>
+    <%= link_to action[:path], class: "group p-5 hex-card hex-card-noise" do %>
+      <div class="w-10 h-10 rounded-[6px] flex items-center justify-center mb-3 relative z-10" style="background: <%= action[:bg] %>;">
+        <svg class="w-5 h-5" style="color: <%= action[:fg] %>;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </div>
+      <p class="text-sm font-semibold relative z-10" style="color: var(--color-obsidian);"><%= action[:title] %></p>
+      <p class="text-xs mt-1 relative z-10" style="color: var(--color-fg-1100);"><%= action[:description] %></p>
+    <% end %>
+  <% end %>
+</div>
+
+<%# ── Two-column: recent activity + system health ── %>
+<div class="grid lg:grid-cols-2 gap-4">
+  <%# Recent users %>
+  <div class="hex-card p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-sm font-semibold" style="color: var(--color-obsidian);">Recent Users</h2>
+      <%= link_to "View all", admin_users_path, class: "text-xs text-[var(--color-eggplant)] hover:text-[var(--color-amethyst)] font-medium" %>
+    </div>
+    <div class="space-y-3">
+      <div class="text-center py-8 text-sm text-[var(--color-fg-1000)]">
+        <p>User data will appear here once PostgreSQL is connected.</p>
+      </div>
+    </div>
+  </div>
+
+  <%# System status %>
+  <div class="hex-card p-6">
+    <h2 class="text-base font-semibold text-obsidian mb-4">System Status</h2>
+    <div class="space-y-3">
+      <% [
+        { name: "PostgreSQL", status: "—", detail: "Database" },
+        { name: "Redis", status: "—", detail: "Cache & jobs" },
+        { name: "Sidekiq", status: "—", detail: "Background workers" },
+        { name: "Storage", status: "—", detail: "Active Storage" }
+      ].each do |service| %>
+        <div class="flex items-center justify-between py-2 border-b border-[var(--color-grid-400)] last:border-0">
+          <div>
+            <p class="text-sm font-medium text-obsidian"><%= service[:name] %></p>
+            <p class="text-xs text-[var(--color-fg-1000)]"><%= service[:detail] %></p>
+          </div>
+          <span class="text-xs font-medium text-[var(--color-fg-1000)] bg-[var(--color-fg-200)] px-2 py-0.5 rounded-[99px]"><%= service[:status] %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

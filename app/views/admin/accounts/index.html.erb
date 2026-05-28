@@ -1,0 +1,39 @@
+<% content_for(:title, "Organizations — Admin") %>
+
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Admin", admin_dashboard_path, class: "hover:text-[var(--color-fg-1200)]" %>
+  <svg class="w-4 h-4 mx-1 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span class="font-medium text-obsidian">Organizations</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <h1 class="hex-h3">Organizations</h1>
+      <span class="px-2 py-0.5 text-xs font-medium text-[#c24040] bg-[rgba(245,192,192,0.12)] rounded-[99px]">Admin</span>
+    </div>
+    <button class="btn-hex btn-hex-sm rounded-[3px]">
+      Export CSV
+    </button>
+  </div>
+  <p class="text-sm text-[var(--color-fg-1100)] mt-1">View and manage all accounts on the platform — filter by type, member count, and activity</p>
+<% end %>
+
+<%= render "shared/data_table",
+  search_placeholder: "Search by name or slug...",
+  filters: [
+    { name: "type", options: ["All types", "Personal", "Team"] },
+    { name: "members", options: ["Any members", "1 member", "2-5 members", "6-20 members", "20+ members"] },
+    { name: "created", options: ["Any time", "Last 7 days", "Last 30 days", "Last 90 days", "This year"] }
+  ],
+  columns: [
+    { label: "Organization", sortable: true },
+    "Type",
+    "Owner",
+    { label: "Members", sortable: true },
+    "Subdomain",
+    { label: "Created", sortable: true },
+    ""
+  ],
+  empty_message: "No organizations found",
+  empty_detail: "Connect PostgreSQL and run migrations to see organization data" %>

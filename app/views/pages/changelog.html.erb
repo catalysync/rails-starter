@@ -1,0 +1,62 @@
+<% content_for(:title, "Changelog — Starter") %>
+
+<section class="py-20 sm:py-28">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <p class="text-sm font-semibold text-[var(--color-eggplant)] uppercase tracking-wider mb-3">Changelog</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-[var(--color-obsidian)]">What's new</h1>
+      <p class="mt-4 text-lg text-[var(--color-fg-1100)]">Latest updates, improvements, and fixes.</p>
+    </div>
+
+    <%# Timeline of changes %>
+    <div class="relative">
+      <div class="absolute left-4 top-0 bottom-0 w-px bg-[var(--color-fg-400)]"></div>
+
+      <div class="space-y-12">
+        <% [
+          { date: "March 14, 2026", version: "v0.3.0", title: "Multi-tenancy & Teams", items: [
+            "Account model with personal & team accounts",
+            "Membership model with owner/admin/member roles",
+            "Account switching in dashboard sidebar",
+            "Pundit policies for role-based access",
+            "acts_as_tenant automatic scoping"
+          ]},
+          { date: "March 10, 2026", version: "v0.2.0", title: "API & Documentation", items: [
+            "Grape API framework with versioned endpoints",
+            "Swagger auto-generated documentation",
+            "Scalar UI for interactive API docs",
+            "CORS configuration for frontend apps"
+          ]},
+          { date: "March 5, 2026", version: "v0.1.0", title: "Initial Release", items: [
+            "Rails 8.1 with Hotwire (Turbo + Stimulus)",
+            "Devise authentication with email/password",
+            "Tailwind CSS with Propshaft",
+            "Sidekiq background processing",
+            "PaperTrail audit logging",
+            "RSpec test suite with FactoryBot"
+          ]}
+        ].each do |release| %>
+          <div class="relative pl-12">
+            <div class="absolute left-2.5 w-3 h-3 bg-[var(--color-eggplant)] rounded-full border-2 border-white shadow"></div>
+
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs font-mono font-medium text-[var(--color-eggplant)] bg-[rgba(49,38,59,0.06)] px-2 py-0.5 rounded"><%= release[:version] %></span>
+              <time class="text-sm text-[var(--color-fg-1000)]"><%= release[:date] %></time>
+            </div>
+
+            <h3 class="text-lg font-semibold text-[var(--color-obsidian)] mb-3"><%= release[:title] %></h3>
+
+            <ul class="space-y-2">
+              <% release[:items].each do |item| %>
+                <li class="flex items-start gap-2 text-sm text-[var(--color-fg-1100)]">
+                  <svg class="w-4 h-4 text-[var(--color-jade)] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <%= item %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

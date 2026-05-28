@@ -1,0 +1,30 @@
+<% content_for(:title, "Analytics — Starter") %>
+
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Dashboard", dashboard_path, style: "color: var(--color-fg-1100);" %>
+  <svg class="w-4 h-4 mx-1" style="color: var(--color-fg-800);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span class="font-medium" style="color: var(--color-obsidian);">Analytics</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <div class="flex items-center justify-between">
+    <h1 class="hex-h3">Analytics</h1>
+    <select class="hex-input" style="width: auto; padding: 6px 12px; font-size: 12px;">
+      <option>Last 7 days</option>
+      <option>Last 30 days</option>
+      <option>Last 90 days</option>
+      <option>This year</option>
+    </select>
+  </div>
+<% end %>
+
+<div class="grid lg:grid-cols-2 gap-4">
+  <% ["Users Over Time", "Revenue by Plan", "Signups by Source", "Active Sessions"].each do |chart_title| %>
+    <div class="hex-card p-6">
+      <h3 class="text-sm font-semibold mb-4" style="color: var(--color-obsidian);"><%= chart_title %></h3>
+      <div class="h-48 flex items-center justify-center rounded-[6px]" style="border: 1px dashed var(--color-grid-500);">
+        <p class="hex-small"><%= chart_title %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

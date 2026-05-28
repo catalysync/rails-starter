@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= content_for(:title) || "Dashboard — Starter" %></title>
+    <meta name="turbo-prefetch" content="false">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Starter">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="min-h-screen antialiased" style="background: #fff; color: var(--color-obsidian);" data-controller="sidebar">
+    <%= render "shared/impersonation_banner" %>
+    <div class="flex min-h-screen">
+      <%= render "shared/dashboard_sidebar" %>
+      <div class="flex-1 flex flex-col min-w-0 lg:ml-64">
+        <%= render "shared/dashboard_topbar" %>
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 relative z-10" style="background: #fafafa;">
+          <%= render "flashes" %>
+          <% if content_for?(:page_header) %>
+            <div class="mb-6"><%= yield :page_header %></div>
+          <% end %>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+    <div data-sidebar-target="overlay" data-action="click->sidebar#close"
+         class="fixed inset-0 z-30 lg:hidden hidden" style="background: rgba(20,20,28,0.3); backdrop-filter: blur(4px);"></div>
+  </body>
+</html>

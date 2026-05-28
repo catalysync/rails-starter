@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_14_161930) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_14_101234) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "billing_email"
+    t.datetime "created_at", null: false
+    t.string "custom_domain"
+    t.jsonb "metadata", default: {}
+    t.string "name", null: false
+    t.uuid "owner_id", null: false
+    t.boolean "personal", default: false, null: false
+    t.jsonb "settings", default: {}
+    t.string "stripe_customer_id"
+    t.string "subdomain"
+    t.datetime "updated_at", null: false
+    t.index ["custom_domain"], name: "index_accounts_on_custom_domain", unique: true, where: "(custom_domain IS NOT NULL)"
+    t.index ["owner_id"], name: "index_accounts_on_owner_id"
+    t.index ["stripe_customer_id"], name: "index_accounts_on_stripe_customer_id", unique: true, where: "(stripe_customer_id IS NOT NULL)"
+    t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true, where: "(subdomain IS NOT NULL)"
+  end
 
   create_table "action_text_rich_texts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "body"
@@ -53,6 +71,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_161930) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "account_id", null: false
+    t.datetime "created_at", null: false
+    t.string "role", default: "member", null: false
+    t.string "status", default: "active", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.index ["account_id"], name: "index_memberships_on_account_id"
+    t.index ["role"], name: "index_memberships_on_role"
+    t.index ["status"], name: "index_memberships_on_status"
+    t.index ["user_id", "account_id"], name: "index_memberships_on_user_id_and_account_id", unique: true
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
@@ -68,6 +100,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_161930) do
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
+    t.boolean "platform_admin", default: false, null: false
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -92,6 +125,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_14_161930) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "memberships", "accounts"
+  add_foreign_key "memberships", "users"
 end

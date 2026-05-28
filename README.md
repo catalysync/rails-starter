@@ -1,5 +1,5 @@
 # README
-
+claude --resume a1cd8c1b-bf12-45f1-b56f-b4fc21989dbc                                    
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

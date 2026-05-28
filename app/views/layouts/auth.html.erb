@@ -1,32 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "Starter" %></title>
+    <title><%= content_for(:title) || "Sign in — Starter" %></title>
+    <meta name="turbo-prefetch" content="false">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Starter">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <body class="min-h-screen antialiased" style="background: #fff; color: var(--color-obsidian);">
+    <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative z-10">
+      <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
+        <%= link_to root_path, class: "inline-flex items-center gap-2.5" do %>
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-roseQuartz to-eggplant flex items-center justify-center">
+            <span class="text-white font-bold">S</span>
+          </div>
+        <% end %>
+      </div>
 
-    <%= yield %>
+      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="hex-card py-8 px-4 sm:px-10" style="background: rgba(255,255,255,0.8);">
+          <%= render "flashes" %>
+          <%= yield %>
+        </div>
+        <p class="mt-6 text-center text-sm" style="color: var(--color-text-muted);">
+          <%= link_to "Back to home", root_path, class: "font-medium transition-colors", style: "color: var(--color-eggplant);" %>
+        </p>
+      </div>
+    </div>
+
   </body>
 </html>

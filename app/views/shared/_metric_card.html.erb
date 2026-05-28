@@ -1,0 +1,32 @@
+<%# Usage: render "shared/metric_card", label: "Total Users", value: "1,234", change: "+12%", trend: :up, icon: "users" %>
+<% trend ||= :neutral %>
+<% change ||= nil %>
+<% icon ||= nil %>
+
+<div class="hex-card p-5">
+  <div class="flex items-start justify-between">
+    <div>
+      <p class="text-sm font-medium text-[var(--color-fg-1100)]"><%= label %></p>
+      <p class="hex-h3 !text-2xl text-[var(--color-obsidian)] mt-1"><%= value %></p>
+      <% if change %>
+        <div class="flex items-center gap-1 mt-2">
+          <% if trend == :up %>
+            <svg class="w-3.5 h-3.5 text-[var(--color-jade)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+            <span class="text-xs font-medium text-[var(--color-jade)]"><%= change %></span>
+          <% elsif trend == :down %>
+            <svg class="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            <span class="text-xs font-medium text-[#c24040]"><%= change %></span>
+          <% else %>
+            <span class="text-xs font-medium text-[var(--color-fg-1100)]"><%= change %></span>
+          <% end %>
+          <span class="text-xs text-[var(--color-fg-1000)]">vs last period</span>
+        </div>
+      <% end %>
+    </div>
+    <% if icon %>
+      <div class="w-10 h-10 bg-[var(--color-fg-200)] rounded-[6px] flex items-center justify-center">
+        <svg class="w-5 h-5 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><%= raw(ApplicationHelper::SIDEBAR_ICONS[icon] || "") %></svg>
+      </div>
+    <% end %>
+  </div>
+</div>

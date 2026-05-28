@@ -1,0 +1,41 @@
+<div class="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto items-start">
+  <% [
+    { name: "Starter", price: "Free", period: "", description: "For side projects.", cta: "Get started", featured: false,
+      features: ["Authentication (email/password)", "Personal account", "Basic dashboard", "API access", "Community support"] },
+    { name: "Pro", price: "$29", period: "/month", description: "For serious builders.", cta: "Start free trial", featured: true,
+      features: ["Everything in Starter", "Team accounts & roles", "Billing & subscriptions", "Admin dashboard", "Priority support", "Custom domain"] },
+    { name: "Enterprise", price: "$99", period: "/month", description: "For scaling teams.", cta: "Contact sales", featured: false,
+      features: ["Everything in Pro", "SSO / SAML", "Audit logs", "Custom roles & permissions", "Dedicated support", "SLA guarantee"] }
+  ].each do |plan| %>
+    <div class="relative flex flex-col p-8 hex-card" style="<%= 'border-color: var(--color-roseQuartz);' if plan[:featured] %>">
+      <% if plan[:featured] %>
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span class="hex-label px-3 py-1" style="background: rgba(164,119,178,0.1); color: var(--color-amethyst); border: 1px solid rgba(164,119,178,0.2); border-radius: 99px; opacity: 1;">Most Popular</span>
+        </div>
+      <% end %>
+
+      <div class="mb-5">
+        <h3 class="font-display text-base font-semibold" style="color: var(--color-obsidian);"><%= plan[:name] %></h3>
+        <p class="text-sm mt-1" style="color: var(--color-fg-1100);"><%= plan[:description] %></p>
+      </div>
+
+      <div class="mb-6">
+        <span class="font-display text-4xl font-semibold" style="color: var(--color-obsidian);"><%= plan[:price] %></span>
+        <span class="text-sm" style="color: var(--color-fg-1000);"><%= plan[:period] %></span>
+      </div>
+
+      <%= link_to new_user_registration_path, style: "display: flex; align-items: center; justify-content: center; width: 100%; height: 40px; font-size: 14px; border-radius: 3px; margin-bottom: 24px; #{plan[:featured] ? 'background: linear-gradient(to right, var(--color-fg-100), var(--color-fg-100)), linear-gradient(45deg, #cda0a5, var(--color-eggplant)); border: 1px solid transparent; background-clip: padding-box, border-box; background-origin: padding-box, border-box; color: var(--color-obsidian);' : 'border: 1px solid var(--color-grid-500); color: var(--color-eggplant);'}" do %>
+        <span class="font-medium"><%= plan[:cta] %></span>
+      <% end %>
+
+      <ul class="space-y-3 flex-1">
+        <% plan[:features].each do |feature| %>
+          <li class="flex items-start gap-3 text-sm" style="color: var(--color-fg-1100);">
+            <svg class="w-4 h-4 shrink-0 mt-0.5" style="color: var(--color-amethyst);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <%= feature %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

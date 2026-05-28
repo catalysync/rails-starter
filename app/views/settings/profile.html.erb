@@ -1,0 +1,79 @@
+<% content_for(:title, "Profile — Starter") %>
+
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Dashboard", dashboard_path, class: "hover:text-[var(--color-fg-1200)]" %>
+  <svg class="w-4 h-4 mx-1 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span class="font-medium text-obsidian">Profile</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <h1 class="hex-h3">Profile Settings</h1>
+  <p class="text-sm text-[var(--color-fg-1100)] mt-1">Update your personal information</p>
+<% end %>
+
+<%# ── Settings tabs ── %>
+<div class="mb-8" style="border-bottom: 1px solid var(--color-grid-500);">
+  <nav class="flex gap-4 -mb-px">
+    <%= link_to "General", dashboard_settings_general_path, class: "pb-3 text-sm font-medium border-b-2 #{current_page?(dashboard_settings_general_path) ? 'border-[var(--color-eggplant)] text-[var(--color-eggplant)]' : 'border-transparent text-[var(--color-fg-1000)] hover:text-[var(--color-obsidian)]'} transition-colors" %>
+    <%= link_to "Profile", dashboard_settings_profile_path, class: "pb-3 text-sm font-medium border-b-2 #{current_page?(dashboard_settings_profile_path) ? 'border-[var(--color-eggplant)] text-[var(--color-eggplant)]' : 'border-transparent text-[var(--color-fg-1000)] hover:text-[var(--color-obsidian)]'} transition-colors" %>
+    <%= link_to "Notifications", dashboard_settings_notifications_path, class: "pb-3 text-sm font-medium border-b-2 #{current_page?(dashboard_settings_notifications_path) ? 'border-[var(--color-eggplant)] text-[var(--color-eggplant)]' : 'border-transparent text-[var(--color-fg-1000)] hover:text-[var(--color-obsidian)]'} transition-colors" %>
+  </nav>
+</div>
+
+<div class="space-y-8">
+  <%# Avatar section %>
+  <div class="hex-card p-6">
+    <h2 class="text-base font-semibold text-obsidian mb-4">Avatar</h2>
+    <div class="flex items-center gap-4">
+      <div class="w-20 h-20 rounded-[99px] bg-[var(--color-fg-300)] flex items-center justify-center hex-h3 !text-2xl text-[var(--color-fg-1000)]">
+        <%= current_user.name.first.upcase %>
+      </div>
+      <div>
+        <button class="px-4 py-2 text-sm font-medium text-[var(--color-fg-1200)] hex-card rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors">Upload Photo</button>
+        <p class="text-xs text-[var(--color-fg-1000)] mt-2">JPG, PNG or GIF. Max 2MB.</p>
+      </div>
+    </div>
+  </div>
+
+  <%# Personal info %>
+  <div class="hex-card p-6">
+    <h2 class="text-base font-semibold text-obsidian mb-4">Personal Information</h2>
+    <form class="space-y-4 max-w-lg">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-[var(--color-fg-1200)] mb-1">First Name</label>
+          <input type="text" value="<%= current_user.first_name %>" class="w-full px-3 py-2 text-sm border border-[var(--color-grid-500)] rounded-[6px] focus:ring-2 focus:ring-[var(--color-amethyst)] focus:border-[var(--color-amethyst)]">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-[var(--color-fg-1200)] mb-1">Last Name</label>
+          <input type="text" value="<%= current_user.last_name %>" class="w-full px-3 py-2 text-sm border border-[var(--color-grid-500)] rounded-[6px] focus:ring-2 focus:ring-[var(--color-amethyst)] focus:border-[var(--color-amethyst)]">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-fg-1200)] mb-1">Email</label>
+        <input type="email" value="<%= current_user.email %>" class="w-full px-3 py-2 text-sm border border-[var(--color-grid-500)] rounded-[6px] focus:ring-2 focus:ring-[var(--color-amethyst)] focus:border-[var(--color-amethyst)]">
+      </div>
+      <button type="submit" class="btn-hex btn-hex-sm rounded-[3px]">Save Changes</button>
+    </form>
+  </div>
+
+  <%# Password %>
+  <div class="hex-card p-6">
+    <h2 class="text-base font-semibold text-obsidian mb-4">Change Password</h2>
+    <form class="space-y-4 max-w-lg">
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-fg-1200)] mb-1">Current Password</label>
+        <input type="password" class="w-full px-3 py-2 text-sm border border-[var(--color-grid-500)] rounded-[6px] focus:ring-2 focus:ring-[var(--color-amethyst)] focus:border-[var(--color-amethyst)]">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-fg-1200)] mb-1">New Password</label>
+        <input type="password" class="w-full px-3 py-2 text-sm border border-[var(--color-grid-500)] rounded-[6px] focus:ring-2 focus:ring-[var(--color-amethyst)] focus:border-[var(--color-amethyst)]">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-[var(--color-fg-1200)] mb-1">Confirm New Password</label>
+        <input type="password" class="w-full px-3 py-2 text-sm border border-[var(--color-grid-500)] rounded-[6px] focus:ring-2 focus:ring-[var(--color-amethyst)] focus:border-[var(--color-amethyst)]">
+      </div>
+      <button type="submit" class="btn-hex btn-hex-sm rounded-[3px]">Update Password</button>
+    </form>
+  </div>
+</div>

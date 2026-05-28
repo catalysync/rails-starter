@@ -1,0 +1,122 @@
+<% content_for(:title, "Customer Details — Admin") %>
+
+<% content_for(:breadcrumbs) do %>
+  <%= link_to "Admin", admin_dashboard_path, class: "hover:text-[var(--color-fg-1200)]" %>
+  <svg class="w-4 h-4 mx-1 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <%= link_to "Customers", admin_customers_path, class: "hover:text-[var(--color-fg-1200)]" %>
+  <svg class="w-4 h-4 mx-1 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  <span class="font-medium text-obsidian">Customer Details</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <div class="flex items-center justify-between">
+    <h1 class="hex-h3">Customer Details</h1>
+    <a href="#" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--color-fg-1200)] hex-card rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors" target="_blank">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      View in Stripe
+    </a>
+  </div>
+<% end %>
+
+<div class="grid lg:grid-cols-3 gap-4">
+  <div class="lg:col-span-2 space-y-6">
+    <%# Subscription details %>
+    <div class="hex-card p-6">
+      <h2 class="text-base font-semibold text-obsidian mb-4">Current Subscription</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <% [
+          { label: "Plan", value: "—" },
+          { label: "Status", value: "—" },
+          { label: "Billing Cycle", value: "—" },
+          { label: "Amount", value: "—" },
+          { label: "Current Period Start", value: "—" },
+          { label: "Current Period End", value: "—" },
+          { label: "Trial Ends", value: "—" },
+          { label: "Stripe Subscription ID", value: "—" }
+        ].each do |field| %>
+          <div class="py-2 border-b border-[var(--color-grid-400)]">
+            <dt class="text-xs text-[var(--color-fg-1000)] mb-0.5"><%= field[:label] %></dt>
+            <dd class="text-sm font-medium text-obsidian"><%= field[:value] %></dd>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Payment history %>
+    <div class="hex-card p-6">
+      <h2 class="text-base font-semibold text-obsidian mb-4">Payment History</h2>
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-[var(--color-grid-400)]">
+            <th class="py-2 text-left text-xs font-medium text-[var(--color-fg-1100)] uppercase">Date</th>
+            <th class="py-2 text-left text-xs font-medium text-[var(--color-fg-1100)] uppercase">Amount</th>
+            <th class="py-2 text-left text-xs font-medium text-[var(--color-fg-1100)] uppercase">Status</th>
+            <th class="py-2 text-left text-xs font-medium text-[var(--color-fg-1100)] uppercase">Invoice</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-50">
+          <tr>
+            <td colspan="4" class="py-8 text-center text-sm text-[var(--color-fg-1000)]">Payment data loads from Stripe</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%# Sidebar %>
+  <div class="space-y-6">
+    <%# Billing info %>
+    <div class="hex-card p-5">
+      <h2 class="text-base font-semibold text-obsidian mb-3">Billing Details</h2>
+      <div class="space-y-3">
+        <% [
+          { label: "Stripe Customer ID", value: "—" },
+          { label: "Billing Email", value: "—" },
+          { label: "Tax ID", value: "—" },
+          { label: "Payment Method", value: "—" }
+        ].each do |field| %>
+          <div>
+            <dt class="text-xs text-[var(--color-fg-1000)]"><%= field[:label] %></dt>
+            <dd class="text-sm text-obsidian mt-0.5"><%= field[:value] %></dd>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Actions %>
+    <div class="hex-card p-5">
+      <h2 class="text-base font-semibold text-obsidian mb-3">Actions</h2>
+      <div class="space-y-1">
+        <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left text-[var(--color-fg-1200)] rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors">
+          <svg class="w-4 h-4 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          Change Plan
+        </button>
+        <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left text-[var(--color-fg-1200)] rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors">
+          <svg class="w-4 h-4 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Extend Trial
+        </button>
+        <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left text-[var(--color-fg-1200)] rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors">
+          <svg class="w-4 h-4 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          Update Billing Details
+        </button>
+        <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left text-[var(--color-fg-1200)] rounded-[6px] hover:bg-[var(--color-fg-200)] transition-colors">
+          <svg class="w-4 h-4 text-[var(--color-fg-1000)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          Issue Refund
+        </button>
+      </div>
+    </div>
+
+    <%# Danger %>
+    <div class="bg-[var(--color-fg-100)] border border-[var(--color-roseQuartz)] rounded-[12px] p-5">
+      <h2 class="text-base font-semibold text-[#c24040] mb-3">Danger Zone</h2>
+      <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left text-[var(--color-citrine)] rounded-[6px] hover:bg-[rgba(205,168,73,0.1)] transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+        Cancel Subscription
+      </button>
+      <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-left text-[#c24040] rounded-[6px] hover:bg-[rgba(245,192,192,0.12)] transition-colors mt-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        Delete Customer Profile
+      </button>
+    </div>
+  </div>
+</div>

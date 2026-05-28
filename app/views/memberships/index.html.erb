@@ -1,0 +1,76 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Members</h1>
+      <p class="text-sm text-[var(--color-fg-1000)] mt-1"><%= @account.name %></p>
+    </div>
+    <%= link_to "Back to Account", account_path(@account), class: "px-4 py-2 text-sm font-medium text-[var(--color-fg-1200)] bg-white border border-[var(--color-grid-500)] rounded-lg hover:bg-gray-50 transition-colors" %>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-[var(--color-fg-1000)] uppercase tracking-wider">Member</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-[var(--color-fg-1000)] uppercase tracking-wider">Role</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-[var(--color-fg-1000)] uppercase tracking-wider">Joined</th>
+          <% if current_membership&.admin? || current_membership&.owner? %>
+            <th class="px-6 py-3 text-right text-xs font-medium text-[var(--color-fg-1000)] uppercase tracking-wider">Actions</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% @memberships.each do |membership| %>
+          <tr>
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-semibold text-[var(--color-fg-1100)]">
+                  <%= membership.user.first_name.first.upcase %><%= membership.user.last_name.first.upcase %>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-900">
+                    <%= membership.user.name %>
+                    <% if membership.user == current_user %>
+                      <span class="text-[var(--color-fg-900)]">(you)</span>
+                    <% end %>
+                  </div>
+                  <div class="text-sm text-[var(--color-fg-1000)]"><%= membership.user.email %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4">
+              <% if policy(membership).update? %>
+                <%= form_with model: [membership.account, membership], class: "inline" do |f| %>
+                  <%= f.select :role, Membership.roles.keys.map { |r| [r.titleize, r] }, {},
+                    class: "text-sm border border-[var(--color-grid-500)] rounded-lg px-2 py-1 focus:ring-2 focus:ring-[var(--color-amethyst)]",
+                    onchange: "this.form.requestSubmit()" %>
+                <% end %>
+              <% else %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                  <%= case membership.role
+                      when 'owner' then 'bg-purple-100 text-purple-800'
+                      when 'admin' then 'bg-[rgba(49,38,59,0.08)] text-[var(--color-eggplant)]'
+                      else 'bg-gray-100 text-gray-800'
+                      end %>">
+                  <%= membership.role.titleize %>
+                </span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 text-sm text-[var(--color-fg-1000)]">
+              <%= membership.created_at.strftime("%b %d, %Y") %>
+            </td>
+            <% if current_membership&.admin? || current_membership&.owner? %>
+              <td class="px-6 py-4 text-right">
+                <% if policy(membership).destroy? %>
+                  <%= button_to "Remove", account_membership_path(membership.account, membership), method: :delete,
+                    class: "text-sm text-red-600 hover:text-red-800",
+                    data: { turbo_confirm: "Remove #{membership.user.name} from this account?" } %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

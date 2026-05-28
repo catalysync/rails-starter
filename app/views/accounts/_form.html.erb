@@ -1,0 +1,14 @@
+<%= simple_form_for account do |f| %>
+  <%= render "form_errors", resource: account %>
+
+  <div class="space-y-4">
+    <%= f.input :name, placeholder: "Account name", input_html: { class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" } %>
+    <%= f.input :subdomain, placeholder: "your-team", hint: "Optional. Lowercase letters, numbers, and hyphens only.", input_html: { class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" } %>
+    <%= f.input :billing_email, placeholder: "billing@example.com", input_html: { class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" } %>
+
+    <div class="flex items-center gap-3 pt-4">
+      <%= f.submit class: "px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors cursor-pointer" %>
+      <%= link_to "Cancel", accounts_path, class: "px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" %>
+    </div>
+  </div>
+<% end %>

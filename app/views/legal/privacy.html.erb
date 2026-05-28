@@ -1,0 +1,29 @@
+<% content_for(:title, "Privacy Policy — Starter") %>
+
+<section class="py-20 sm:py-28">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header class="mb-12">
+      <h1 class="text-3xl font-bold text-[var(--color-obsidian)]">Privacy Policy</h1>
+      <p class="mt-2 text-sm text-[var(--color-fg-1000)]">Last updated: <%= Date.current.strftime("%B %d, %Y") %></p>
+    </header>
+
+    <div class="prose prose-gray max-w-none">
+      <p>This Privacy Policy describes how your personal information is collected, used, and shared when you use our service.</p>
+
+      <h2>Information We Collect</h2>
+      <p>When you use our service, we collect certain information about you, including your name, email address, and usage data. This information is used to provide and improve our service.</p>
+
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect to operate, maintain, and improve our services, to communicate with you, and to detect and prevent fraud.</p>
+
+      <h2>Data Retention</h2>
+      <p>We retain your personal data only for as long as necessary to provide you with our service and as described in this Privacy Policy.</p>
+
+      <h2>Your Rights</h2>
+      <p>You have the right to access, update, or delete your personal information at any time through your account settings.</p>
+
+      <h2>Contact Us</h2>
+      <p>For questions about this Privacy Policy, please <a href="<%= contact_path %>">contact us</a>.</p>
+    </div>
+  </div>
+</section>

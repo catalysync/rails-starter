@@ -1,0 +1,37 @@
+<% content_for(:title, "Pricing — Starter") %>
+
+<section class="py-20 sm:py-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-16">
+      <p class="text-sm font-semibold text-[var(--color-eggplant)] uppercase tracking-wider mb-3">Pricing</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-[var(--color-obsidian)]">Choose the plan that fits your needs</h1>
+      <p class="mt-4 text-lg text-[var(--color-fg-1100)]">Start free, upgrade when you're ready. No credit card required.</p>
+    </div>
+
+    <%= render "shared/pricing_cards" %>
+  </div>
+</section>
+
+<%# ── FAQ for pricing ── %>
+<section class="py-20 bg-[#fafafa]">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold text-[var(--color-obsidian)] text-center mb-12">Common questions about pricing</h2>
+
+    <div class="space-y-4">
+      <% [
+        { q: "Can I switch plans later?", a: "Yes, you can upgrade or downgrade at any time. Changes take effect immediately and are prorated." },
+        { q: "Is there a free trial?", a: "The Starter plan is free forever. Pro and Enterprise plans come with a 14-day free trial." },
+        { q: "What payment methods do you accept?", a: "We accept all major credit cards through Stripe. Enterprise plans can pay via invoice." },
+        { q: "Can I cancel anytime?", a: "Yes. Cancel your subscription at any time with no penalties. You'll retain access until the end of your billing period." }
+      ].each do |faq| %>
+        <details class="group hex-card rounded-xl">
+          <summary class="flex items-center justify-between px-6 py-4 cursor-pointer text-base font-medium text-[var(--color-obsidian)] hover:text-[var(--color-eggplant)] transition-colors">
+            <%= faq[:q] %>
+            <svg class="w-5 h-5 text-[var(--color-fg-900)] group-open:rotate-180 transition-transform shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-6 pb-4 text-[var(--color-fg-1100)]"><%= faq[:a] %></div>
+        </details>
+      <% end %>
+    </div>
+  </div>
+</section>

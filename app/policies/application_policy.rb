@@ -36,6 +36,32 @@ class ApplicationPolicy
     false
   end
 
+  private
+
+  def platform_admin?
+    user&.platform_admin?
+  end
+
+  def current_membership
+    Current.membership
+  end
+
+  def current_account
+    Current.account
+  end
+
+  def admin_or_owner?
+    current_membership&.admin? || current_membership&.owner?
+  end
+
+  def owner?
+    current_membership&.owner?
+  end
+
+  def member?
+    current_membership.present?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

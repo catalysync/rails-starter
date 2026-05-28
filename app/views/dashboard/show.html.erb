@@ -1,0 +1,99 @@
+<% content_for(:title, "Dashboard — Starter") %>
+
+<% content_for(:breadcrumbs) do %>
+  <span class="font-medium" style="color: var(--color-obsidian);">Dashboard</span>
+<% end %>
+
+<% content_for(:page_header) do %>
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="hex-h3">Dashboard</h1>
+      <p class="hex-small mt-1">Welcome back, <%= current_user.first_name %></p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="btn-outline btn-hex-sm rounded-[3px]">Export</button>
+      <button class="btn-hex btn-hex-sm rounded-[3px]">New Project</button>
+    </div>
+  </div>
+<% end %>
+
+<%# ── Metrics ── %>
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <% [
+    { label: "Total Revenue", value: "$12,450", change: "+12.5%", up: true },
+    { label: "Active Users", value: "2,340", change: "+8.2%", up: true },
+    { label: "Subscriptions", value: "184", change: "+3.1%", up: true },
+    { label: "Churn Rate", value: "2.4%", change: "-0.5%", up: false }
+  ].each do |metric| %>
+    <div class="hex-card p-5">
+      <div class="flex items-center justify-between mb-3">
+        <span class="hex-label" style="opacity: 0.7;"><%= metric[:label] %></span>
+        <span class="hex-badge" style="<%= metric[:up] ? 'color: var(--color-jade); background: rgba(92,177,152,0.1);' : 'color: #c24040; background: rgba(245,192,192,0.2);' %>">
+          <%= metric[:change] %>
+        </span>
+      </div>
+      <p class="text-2xl font-display font-semibold" style="color: var(--color-obsidian);"><%= metric[:value] %></p>
+    </div>
+  <% end %>
+</div>
+
+<%# ── Main content ── %>
+<div class="grid lg:grid-cols-3 gap-4">
+  <%# Chart area %>
+  <div class="lg:col-span-2 hex-card p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-semibold" style="color: var(--color-obsidian);">Revenue Overview</h2>
+      <div class="hex-tab-group rounded-[3px]">
+        <button class="px-3 py-1 text-xs font-medium rounded-[2px]" style="background: var(--color-eggplant); color: white;">Monthly</button>
+        <button class="px-3 py-1 text-xs font-medium rounded-[2px]" style="color: var(--color-fg-1100);">Weekly</button>
+      </div>
+    </div>
+    <div class="h-64 flex items-center justify-center rounded-[6px]" style="border: 1px dashed var(--color-grid-500);">
+      <div class="text-center">
+        <svg class="w-10 h-10 mx-auto mb-2" style="color: var(--color-fg-800);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <p class="hex-small">Integrate with Chartkick or Chart.js</p>
+      </div>
+    </div>
+  </div>
+
+  <%# Activity feed %>
+  <div class="hex-card p-6">
+    <h2 class="font-semibold mb-4" style="color: var(--color-obsidian);">Recent Activity</h2>
+    <div class="space-y-4">
+      <% [
+        { action: "New member joined", detail: "john@example.com", time: "2 min ago" },
+        { action: "Subscription upgraded", detail: "Pro plan", time: "1 hour ago" },
+        { action: "Invoice paid", detail: "$29.00", time: "3 hours ago" },
+        { action: "New account created", detail: "Acme Corp", time: "1 day ago" },
+        { action: "Member role changed", detail: "Admin → Owner", time: "2 days ago" }
+      ].each do |activity| %>
+        <div class="flex items-start gap-3">
+          <div class="w-2 h-2 rounded-[99px] mt-2 shrink-0 bg-roseQuartz"></div>
+          <div class="min-w-0">
+            <p class="text-sm font-medium" style="color: var(--color-obsidian);"><%= activity[:action] %></p>
+            <p class="text-xs" style="color: var(--color-fg-1000);"><%= activity[:detail] %> &middot; <%= activity[:time] %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%# ── Quick actions ── %>
+<div class="mt-4 grid sm:grid-cols-3 gap-4">
+  <% [
+    { title: "Invite Members", description: "Add team members to your account", path: dashboard_members_path },
+    { title: "Configure Billing", description: "Manage plans and payment methods", path: dashboard_billing_path },
+    { title: "Account Settings", description: "Update your account details", path: dashboard_settings_general_path }
+  ].each do |action| %>
+    <%= link_to action[:path], class: "hex-card hex-card-noise p-5 flex items-center gap-4" do %>
+      <div class="w-10 h-10 rounded-[6px] flex items-center justify-center shrink-0" style="background: rgba(49,38,59,0.05);">
+        <svg class="w-5 h-5" style="color: var(--color-eggplant);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </div>
+      <div class="relative z-10">
+        <p class="text-sm font-medium" style="color: var(--color-obsidian);"><%= action[:title] %></p>
+        <p class="text-xs" style="color: var(--color-fg-1000);"><%= action[:description] %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
